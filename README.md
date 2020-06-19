@@ -25,9 +25,11 @@ WireGuard mobile only allows the client to specify IP addresses that are "allowe
 
 A bit much to effectively specify a single host... and not so simple to construct in your head, unless you're an advanced human subnet calculator
 
-This code could be written much more succinctly, feel free to strip it down
 
-If/when the a `Disallowed IPs` option is provided in the WireGuard client, to complement/provide and alternative to the `Allowed IPs` option, this script will become 100% worthless :>
+## Sad Things
+
+ * This code could be written much more succinctly, feel free to strip it down
+ * If/when the a `Disallowed IPs` option is provided in the WireGuard client, to complement/provide and alternative to the `Allowed IPs` option, this script will become 100% worthless :>
 
 ## Caveat Emptor
 
