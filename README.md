@@ -111,6 +111,7 @@ $ ./generate-wireguard-allowed-qr.py --no-csv --qr --exclude 192.168.1.1 192.168
 ```
 
 **NOTE**: When using QR code, the 'AllowedIPs =' string literal will not be included
+**IMPORTANT**: You may also need to specify the WireGuard peer address as an exclusion
 
 ## QR Code Support
 
