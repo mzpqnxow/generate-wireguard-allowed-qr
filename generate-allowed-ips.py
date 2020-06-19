@@ -277,6 +277,9 @@ def main():
     csv_inclusive_netlist = ','.join(
         [included_net.compressed for included_net in inclusive_netlist])
 
+    if args.ip4_only is False:
+        csv_inclusive_netlist += ',::0/0'  # Force all IPv6 through the tunnel
+
     if args.qrencode is True:
         qr_encode_command = QR_ENCODE_COMMAND + [csv_inclusive_netlist]
         debug('Generating WireGuard friendly QR code format:')
