@@ -1,10 +1,18 @@
 # generate-wireguard-allowed-qr
 
-Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list suitable for the [WireGuard](https://www.wireguard.com/) mobile app, optionally generating a QR code. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
+![WireGuard](img/wireguard-logo.png)\
+
+**NOTE**: This project is **NOT** affiliated with [WireGuard®](https://www.wireguard.com/) in any way, nor is it officially supported in any way. I just think the WireGuard® logo is neat
+
+*(C) 2020, copyright@mzpqnxow.com, please see licensing terms at end of document*
+
+## Generate WireGuard® Tunnel Exclusion List as QR or Text
+
+Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list suitable for the [WireGuard®](https://www.wireguard.com/) mobile app, optionally generating a QR code. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard® tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard® client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
 
 ## Specific Use-Case (LAN + Security Concerns)
 
-Consider a mobile user with an on-demand WireGuard VPN connection for the purpose of both privacy and security that needs to access only a small subset of LAN hosts (or WAN hosts) outside of the tunnel. By using fine-grained addresses in the `AllowedIPs` parameter, this can be accomplished without hassle. The effect:
+Consider a mobile user with an on-demand WireGuard® VPN connection for the purpose of both privacy and security that needs to access only a small subset of LAN hosts (or WAN hosts) outside of the tunnel. By using fine-grained addresses in the `AllowedIPs` parameter, this can be accomplished without hassle. The effect:
 
  * As usual, the tunnel is used by default for Internet resources
  * * Protects privacy from ISPs that mine and sell browsing habits
@@ -12,17 +20,17 @@ Consider a mobile user with an on-demand WireGuard VPN connection for the purpos
  * * Protects the client from rogue LAN devices by reducing the amount of devices that can interact with your device
  * * Protects the broader LAN in the event that your device is compromised by limiting the amount of LAN addresses your device can access
 
-### Natively Supported WireGuard Options for LAN Access via Tunnel Bypass
+### Natively Supported WireGuard® Options for LAN Access via Tunnel Bypass
 
-One existing and very simple solution is to use the built-in "Exclude Private IPs" option in the WireGuard mobile app, which generates a fixed list that simply generates an `AllowedIPs` address list that excludes all RFC1918/RFC3330 Private Addresses. However, this is a very broad range and is not trivial to tweak
+One existing and very simple solution is to use the built-in "Exclude Private IPs" option in the WireGuard® mobile app, which generates a fixed list that simply generates an `AllowedIPs` address list that excludes all RFC1918/RFC3330 Private Addresses. However, this is a very broad range and is not trivial to tweak
 
-Using this rinky-dink little app, you can specify granular exclusions, e.g. `192.168.1.2 192.168.1.3 192.168.1.4` for the WireGuard tunnel and receive a list of networks suitable for the `AllowedIPs`
+Using this rinky-dink little app, you can specify granular exclusions, e.g. `192.168.1.2 192.168.1.3 192.168.1.4` for the WireGuard® tunnel and receive a list of networks suitable for the `AllowedIPs`
 
 Allowing, e.g., only 192.168.1.2, 192.168.1.3 and 192.168.1.4 (as opposed to 192.168.0.0/16) effectively protects the rest of the 192.168.0.0/16 network from being exposed to the device. It also effectively protects the device from the rest of the 192.168.0.0/16 network (and 10/8 and 172.16/12 as well, if relevant)
 
 ## Why Is Code Required? Can't I Just Specify The List Myself?
 
-In case it isn't already clear, WireGuard mobile only allows the client to specify IP addresses that are "allowed" to use the tunnel. It is an opt-in system, most easily used when performing a LAN-to-LAN tunnel. It does not allow the user to specify a blacklist- to do this, a long list of "non-blacklisted" networks must be generated. Because of this, you can't briefly or easily say "all traffic except to/from host 192.168.1.3 should transit the tunnel easily". Instead, you need a list of CIDR notation networks that make up the entire IPv4 address space, excluding "192.168.1.3". 
+In case it isn't already clear, WireGuard® mobile only allows the client to specify IP addresses that are "allowed" to use the tunnel. It is an opt-in system, most easily used when performing a LAN-to-LAN tunnel. It does not allow the user to specify a blacklist- to do this, a long list of "non-blacklisted" networks must be generated. Because of this, you can't briefly or easily say "all traffic except to/from host 192.168.1.3 should transit the tunnel easily". Instead, you need a list of CIDR notation networks that make up the entire IPv4 address space, excluding "192.168.1.3". 
 
 If you're curious, the value for this specific example looks like this and is rather unwieldy, which is where the QR code functionality comes in handy:
 
@@ -34,7 +42,7 @@ This is a bit much to effectively specify just a single host for tunnel bypass, 
 
 ## Sad Things
 
- * If/when the a `Disallowed IPs` option is provided in the WireGuard client, to complement/provide and alternative to the `Allowed IPs` option, this script will become 100% worthless. Hopefully this happens at some point because it's annoying to generate lists like this, even with the convenience of the QR code mechanism
+ * If/when the a `Disallowed IPs` option is provided in the WireGuard® client, to complement/provide and alternative to the `Allowed IPs` option, this script will become 100% worthless. Hopefully this happens at some point because it's annoying to generate lists like this, even with the convenience of the QR code mechanism
 
 ## Caveat Emptor / NOTES
 
@@ -44,9 +52,9 @@ This is a bit much to effectively specify just a single host for tunnel bypass, 
 
 ## Usage
 
-Given a list of dotted-quad and CIDR notation IPv4 networks on the command-line, generate the inverse in the format WireGuard prefers. Optionally, produce a QR code on the terminal screen that scan be easily scanned into mobile devices
+Given a list of dotted-quad and CIDR notation IPv4 networks on the command-line, generate the inverse in the format WireGuard® prefers. Optionally, produce a QR code on the terminal screen that scan be easily scanned into mobile devices
 
-This was written to create an "Allowed IPs" list for the WireGuard mobile app to allow granular tunnel bypass. WireGuard currently doesn't allow you to supply an "Excluded IPs" option, so you have to invert the networks that you want to bypass the tunnel. This overengineered app will do that for you. One very convenient feature is printing a QR code so that the Allowed IPs list will be easy to copy to a mobile device
+This was written to create an "Allowed IPs" list for the WireGuard® mobile app to allow granular tunnel bypass. WireGuard® currently doesn't allow you to supply an "Excluded IPs" option, so you have to invert the networks that you want to bypass the tunnel. This overengineered app will do that for you. One very convenient feature is printing a QR code so that the Allowed IPs list will be easy to copy to a mobile device
 
 ## Help Output
 
@@ -75,7 +83,7 @@ optional arguments:
 
 ## Examples
 
-Use WireGuard tunnel for all networks except 192.168.1.0/24 and 192.168.2.0/24:
+Use WireGuard® tunnel for all networks except 192.168.1.0/24 and 192.168.2.0/24:
 
 ```
 $ ./generate-wireguard-allowed-qr.py --exclude 192.168.1.0/24 192.168.2.0/24
@@ -116,7 +124,7 @@ $ ./generate-wireguard-allowed-qr.py --no-csv-output --qr --exclude 192.168.1.1 
 ```
 
 **NOTE**: When using QR code, the 'AllowedIPs =' string literal will not be included in the QR data by design, so that the data can be pasted into the value box on the mobile app
-**IMPORTANT**: You may also need to specify the WireGuard peer address as an exclusion, you should test this
+**IMPORTANT**: You may also need to specify the WireGuard® peer address as an exclusion, you should test this
 
 ## QR Code Support Dependencies
 
@@ -160,8 +168,16 @@ If you would like to use a different QR code generator, you can change the `QR_E
 
 ## License / Copyright
 
+```
 (C) 2020, copyright@mzpqnxow.com BSD 3-Clause License
-
 For terms, please see COPYING file
-
+```
 ![License](img/BSD-3Clause.jpg)\
+
+## WireGuard® License
+
+```
+WireGuard® Copyright 2015-2020 Jason A. Donenfeld
+All Rights Reserved
+"WireGuard" and the "WireGuard" logo are registered trademarks of Jason A. Donenfeld.
+```
