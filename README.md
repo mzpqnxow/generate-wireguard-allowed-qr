@@ -1,10 +1,10 @@
-# Generated AllowedIPs Text / QR Code for WireGuard® Tunnels
+# Generate AllowedIPs Text / QR Code in Terminal For Granular WireGuard® Tunnel Exclusions
 
 
 ![WireGuard](img/wireguard-logo.png)\
 
 ```
-This project is **NOT** affiliated with [WireGuard®](https://www.wireguard.com/) in any way, nor is it officially supported in any way. I just think the WireGuard® logo is neat :>
+This project is **NOT** affiliated with WireGuard® in any way, nor is it officially supported in any way. I just think the WireGuard® logo is neat :>
 ```
 
 ## Credits
@@ -13,9 +13,13 @@ This project is **NOT** affiliated with [WireGuard®](https://www.wireguard.com/
 (C) 2020, copyright@mzpqnxow.com, please see licensing terms at end of document*
 ```
 
-## Generate WireGuard® Tunnel Exclusion List as QR or Text
+## Background: WireGuard®
 
-Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list suitable for the [WireGuard®](https://www.wireguard.com/) mobile app, optionally generating a QR code. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard® tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard® client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
+Hopefully you know by now, but WireGuard® is an extremely simple yet fast and modern VPN that utilizes state-of-the-art cryptography. You can read more about it [here](https://www.wireguard.com/)
+
+## Generate AllowedIPs Value As Text String or QR Code in Terminal For Granular WireGuard® Tunnel Exclusions
+
+Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list suitable for the [WireGuard®](https://www.wireguard.com/) mobile app, optionally generating a QR code using ANSI escape characters in a standard terminal window. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard® tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard® client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
 
 ## Specific Use-Case (LAN + Security Concerns)
 
