@@ -1,10 +1,17 @@
-# generate-wireguard-allowed-qr
+# Generated AllowedIPs Text / QR Code for WireGuard® Tunnels
+
 
 ![WireGuard](img/wireguard-logo.png)\
 
-**NOTE**: This project is **NOT** affiliated with [WireGuard®](https://www.wireguard.com/) in any way, nor is it officially supported in any way. I just think the WireGuard® logo is neat
+```
+This project is **NOT** affiliated with [WireGuard®](https://www.wireguard.com/) in any way, nor is it officially supported in any way. I just think the WireGuard® logo is neat :>
+```
 
-*(C) 2020, copyright@mzpqnxow.com, please see licensing terms at end of document*
+## Credits
+
+```
+(C) 2020, copyright@mzpqnxow.com, please see licensing terms at end of document*
+```
 
 ## Generate WireGuard® Tunnel Exclusion List as QR or Text
 
