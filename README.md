@@ -19,7 +19,7 @@ Hopefully you know by now, but WireGuard® is an extremely simple yet fast and m
 
 ## Generate AllowedIPs Value As Text String or QR Code in Terminal For Granular WireGuard® Tunnel Exclusions
 
-Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list suitable for the [WireGuard®](https://www.wireguard.com/) mobile app, optionally generating a QR code using ANSI escape characters in a standard terminal window. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard® tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard® client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
+Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list (`AllowedIPs` string) suitable for the [WireGuard®](https://www.wireguard.com/) mobile app, optionally generating a QR code using ANSI escape characters in a standard terminal window. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard® tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard® client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
 
 ## Specific Use-Case (LAN + Security Concerns)
 
