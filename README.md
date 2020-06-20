@@ -4,7 +4,7 @@ Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list suita
 
 ## Specific Use-Case (LAN + Security Concerns)
 
-Consider a mobile user with an on-demand WireGuard VPN connection for the purpose of both privacy and security that needs to access only a small subset of LAN hosts (or WAN hosts) outside of the tunnel. By using fine-grained addresses in the `IncludeIPs` parameter, this can be accomplished without hassle. The effect:
+Consider a mobile user with an on-demand WireGuard VPN connection for the purpose of both privacy and security that needs to access only a small subset of LAN hosts (or WAN hosts) outside of the tunnel. By using fine-grained addresses in the `AllowedIPs` parameter, this can be accomplished without hassle. The effect:
 
  * As usual, the tunnel is used by default for Internet resources
  * * Protects privacy from ISPs that mine and sell browsing habits
