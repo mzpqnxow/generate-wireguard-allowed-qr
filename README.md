@@ -158,7 +158,10 @@ If you would like to use a different QR code generator, you can change the `QR_E
 
 * Perform additional testing
 
-## Copyright
+## License / Copyright
 
-(C) 2020, copyright@mzpqnxow.com, BSD 3-Clause License
-Please see COPYING file
+(C) 2020, copyright@mzpqnxow.com BSD 3-Clause License
+
+For terms, please see COPYING file
+
+![License](img/BSD-3Clause.jpg)\
