@@ -21,6 +21,16 @@ Hopefully you know by now, but WireGuard® is an extremely simple yet fast and m
 
 Given a list of IPv4 addresses (dotted quad, CIDR) print an inclusion list (`AllowedIPs` string) suitable for the [WireGuard®](https://www.wireguard.com/) mobile app, optionally generating a QR code using ANSI escape characters in a standard terminal window. Useful for excluding only a partial set of LAN (or WAN) addresses from the WireGuard® tunnel. Currently, the only "easy" option for accessing a LAN is to opt *all* RFC1918/RFC3330 private addresses out of the tunnel, using the checkbox that the WireGuard® client provides. This script allows a more granular specification, and also allows the specification of specific WAN addresses as well
 
+## Quick-Start (See Usage For Detailed Instructions)
+
+Generate a fine-grained `AllowedIPs` value that excludes only three specific LAN addresses to bypass the tunnel:
+
+```
+ $ ./generate-wireguard-allowed-qr.py --exclude 192.168.1.2 192.168.1.3 192.168.1.10 --qr
+```
+
+This command will generate a QR code which will be printed to your terminal/TTY containing the `AllowedIPs` value, and will also print a text version
+
 ## Specific Use-Case (LAN + Security Concerns)
 
 Consider a mobile user with an on-demand WireGuard® VPN connection for the purpose of both privacy and security that needs to access only a small subset of LAN hosts (or WAN hosts) outside of the tunnel. By using fine-grained addresses in the `AllowedIPs` parameter, this can be accomplished without hassle. The effect:
