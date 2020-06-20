@@ -2,9 +2,17 @@
 """Generated Allowed IPs for WireGuard by specifying an IPv4 exclusion list"""
 from argparse import (Action, ArgumentParser)
 from ipaddress import (collapse_addresses, ip_network, IPv4Address, IPv4Network)
+from os import isatty
 from shutil import which
 from subprocess import (CalledProcessError, PIPE, run)
 from sys import (argv, exit, stderr, stdout)
+
+try:
+    from qrcode import QRCode
+    from qrcode.constants import ERROR_CORRECT_M
+except (ImportError, ModuleNotFoundError):
+    QRCode = None
+
 
 DEFAULT_IP_VERSION = 4
 IPV4_ALL_NET = '0.0.0.0/0'
@@ -206,12 +214,13 @@ def cli(appname):
     args = argparser.parse_args()
 
     if args.qrencode is True:
-        qr_command = QR_ENCODE_COMMAND[0]
-        args.qrencode_path = which(qr_command)
-        if args.qrencode_path is None:
-            argparser.error('Application "{}" not in path, try apt-get '
-                            'install qrencode'.format(qr_command))
-
+        if QRCode is None:
+            qr_command = QR_ENCODE_COMMAND[0]
+            args.qrencode_path = which(qr_command)
+            if args.qrencode_path is None:
+                argparser.error('Application "{}" not in path and qrcode Python3 module not install'
+                                ', try pip install qrencode or apt-get install qrencode'.format(
+                                    qr_command))
     return argparser.parse_args()
 
 
@@ -227,26 +236,42 @@ def main():
     csv_inclusive_netlist = ','.join(
         [included_net.compressed for included_net in inclusive_netlist])
 
-    if args.qrencode is True:
-        qr_encode_command = QR_ENCODE_COMMAND + [csv_inclusive_netlist]
-        output('Generating WireGuard friendly QR code format:')
-        try:
-            result = run(qr_encode_command, stdout=PIPE, check=True)
-        except CalledProcessError as err:
-            fatal('failed to invoke `qrencode` app ({})'.format(err))
-        output(result.stdout.decode('utf-8'))
-        output('')
-
     if args.enable_lines:
+        output('')
         output('Line-based output:')
         for included_net in [net.compressed for net in inclusive_netlist]:
             output('{}'.format(included_net))
 
     if args.disable_csv is False:
-        output('-- CSV line output --')
+        output('')
         output('{}{}'.format(
             'AllowedIPs = ' if args.wireguard_format is True else '',
             csv_inclusive_netlist))
+
+    if args.qrencode is True:
+        output('')
+        if QRCode is not None:
+            output('Generating QR code using Python QRCode()')
+            output('========================================\n')
+            qr = QRCode(error_correction=ERROR_CORRECT_M)
+            qr.add_data(csv_inclusive_netlist)
+            if isatty(stdout.fileno()):
+                qr.print_ascii(tty=True)
+                return
+            fatal('Must have an allocated TTY to generate QR code!')
+        else:
+            output('Generating QR code using qrencode -t ansi')
+            output('========================================\n')
+            qr_encode_command = QR_ENCODE_COMMAND + [csv_inclusive_netlist]
+            output('Generating WireGuard friendly QR code format:')
+            try:
+                result = run(qr_encode_command, stdout=PIPE, check=True)
+            except CalledProcessError as err:
+                fatal('failed to invoke `qrencode` app ({})'.format(err))
+            output(result.stdout.decode('utf-8'))
+            output('')
+    else:
+        output('NOTE: Consider using `--qr` to generate a QR code on your terminal!')
 
 
 if __name__ == '__main__':
