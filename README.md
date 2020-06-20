@@ -52,8 +52,10 @@ $ sudo apt-get install qrencode
 ## Help Output
 
 ```
-usage: ./generate-wireguard-allowed-qr.py [-h] --exclude n.n.n.n[/mask] [n.n.n.n[/mask] ...]
-                        [--loose] [-D] [-q] [-l] [-C]
+$ ./generate-wireguard-allowed-qr.py --help
+usage: ./generate-wireguard-allowed-qr.py [-h] --exclude n.n.n.n[/mask]
+                                          [n.n.n.n[/mask] ...] [--loose] [-D]
+                                          [-q] [-l] [-4] [-W] [-C]
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -65,7 +67,11 @@ optional arguments:
   -D, --debug           Enable debug messages
   -q, --qrencode        Output a QR code to the screen using ANSI escape chars
   -l, --lines-output    Produce output in line-based format
-  -C, --no-csv-output   Disable output of single-line CSV
+  -4, --no-ip6          Do not include ::0/0 output
+  -W, --no-wireguard-format
+                        Exclude the "AllowedIPs = " literal
+  -C, --no-csv-output   Disable output of single-line CSV (WireGuard-style)
+                        format
 ```
 
 ## Examples
@@ -101,10 +107,10 @@ AllowedIPs = 0.0.0.0/1,128.0.0.0/2,192.0.0.0/9,192.128.0.0/11,192.160.0.0/13,192
 200.0.0.0/5,208.0.0.0/4,224.0.0.0/3,::0/0
 ```
 
-The same, but also generate a QR code on the terminal that can be scanned by a mobile device:
+The same, but also generate a QR code on the terminal that can be scanned by a mobile device. Note that when using `--qr`, the `AllowedIPs =` literal will not be printed as it is not required on a mobile device
 
 ```
-$ ./generate-wireguard-allowed-qr.py --no-csv --qr --exclude 192.168.1.1 192.168.1.2
+$ ./generate-wireguard-allowed-qr.py --no-csv-output --qr --exclude 192.168.1.1 192.168.1.2
 ...
 <ANSI QR CODE>
 ...
